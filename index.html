@@ -1,114 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="noir">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NammaBengaluruTimes</title>
+  <meta name="description" content="A Bengaluru news feed blending live RSS streams from Times of India, Hindustan Times, and The Hindu." />
+  <meta name="theme-color" content="#050816" />
 
-  <!-- System Font Stack -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Icons -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    crossorigin="anonymous">
-
-
-  <!-- Swiper -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-  />
-
-  <!-- App Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="nbt-root">
-    <!-- Global Background -->
-    <div class="nbt-bg"></div>
+    <div class="nbt-bg" aria-hidden="true"></div>
 
-    <!-- Top Nav -->
     <header class="nbt-header">
       <div class="nbt-header__left">
         <div class="nbt-logo">
-          <span class="nbt-logo__dot"></span>
+          <span class="nbt-logo__dot" aria-hidden="true"></span>
           <span class="nbt-logo__text">NammaBengaluru<span>Times</span></span>
         </div>
-        <div class="nbt-header__edition">
-          <span class="nbt-chip nbt-chip--accent">Bengaluru Edition</span>
-        </div>
+        <span class="nbt-chip nbt-chip--accent">Bengaluru Edition</span>
       </div>
+
       <div class="nbt-header__right">
         <div class="nbt-header__meta">
           <span id="nbt-date"></span>
           <span class="nbt-separator">•</span>
           <span id="nbt-articles-count">0 stories</span>
         </div>
-        <div class="nbt-header__filters">
-          <div class="nbt-source-toggle">
-            <label class="nbt-source">
-              <input type="checkbox" value="Times of India" checked />
-              <span>TOI</span>
-            </label>
-            <label class="nbt-source">
-              <input type="checkbox" value="Hindustan Times" checked />
-              <span>HT</span>
-            </label>
-            <label class="nbt-source">
-              <input type="checkbox" value="The Hindu" checked />
-              <span>The Hindu</span>
-            </label>
-          </div>
+
+        <div class="nbt-source-toggle" role="group" aria-label="News sources">
+          <label class="nbt-source"><input type="checkbox" value="Times of India" checked /><span>TOI</span></label>
+          <label class="nbt-source"><input type="checkbox" value="Hindustan Times" checked /><span>HT</span></label>
+          <label class="nbt-source"><input type="checkbox" value="The Hindu" checked /><span>The Hindu</span></label>
+        </div>
+
+        <div class="nbt-theme-switch" role="group" aria-label="Theme">
+          <button type="button" class="nbt-theme-dot" data-theme-value="noir"    title="Noir"    aria-label="Noir theme"></button>
+          <button type="button" class="nbt-theme-dot" data-theme-value="sunset"  title="Sunset"  aria-label="Sunset theme"></button>
+          <button type="button" class="nbt-theme-dot" data-theme-value="forest"  title="Forest"  aria-label="Forest theme"></button>
+          <button type="button" class="nbt-theme-dot" data-theme-value="ocean"   title="Ocean"   aria-label="Ocean theme"></button>
+          <button type="button" class="nbt-theme-dot" data-theme-value="candy"   title="Candy"   aria-label="Candy theme"></button>
         </div>
       </div>
     </header>
 
-    <!-- Main Layout -->
+    <div id="nbt-status" class="nbt-status" role="status" aria-live="polite" hidden></div>
+
     <main class="nbt-main">
-      <!-- Hero Slider -->
       <section class="nbt-hero">
-        <div class="nbt-hero__bg" id="hero-bg-layer"></div>
+        <div class="nbt-hero__bg" aria-hidden="true"></div>
         <div class="nbt-hero__inner">
           <div class="nbt-hero__heading">
             <div>
               <h1>Top Stories</h1>
-              <p id="nbt-trending-keywords" class="nbt-hero__keywords">
-                Loading Bengaluru signals, traffic, rains…
-              </p>
+              <p id="nbt-trending-keywords" class="nbt-hero__keywords">Loading Bengaluru signals…</p>
             </div>
-            <div class="nbt-hero__badge-wrap">
-              <span class="nbt-chip nbt-chip--soft">
-                <i class="fa-solid fa-rss"></i>&nbsp; Live RSS Blend
-              </span>
-            </div>
+            <span class="nbt-chip nbt-chip--soft"><i class="fa-solid fa-rss" aria-hidden="true"></i>&nbsp;Live RSS Blend</span>
           </div>
 
           <div class="nbt-hero__slider-wrapper">
-            <div class="nbt-hero__item-bg" id="hero-item-bg"></div>
-
+            <div class="nbt-hero__item-bg" id="hero-item-bg" aria-hidden="true"></div>
             <div class="news-slider swiper" id="hero-swiper">
-              <div class="news-slider__wrp swiper-wrapper" id="hero-slides">
-                <!-- Slides injected via JS -->
-              </div>
-
+              <div class="news-slider__wrp swiper-wrapper" id="hero-slides"></div>
               <div class="news-slider__ctr">
                 <div class="news-slider__arrows">
-                  <button class="news-slider__arrow news-slider-prev">
-                    <span class="icon-font">
-                      <i class="fa-solid fa-chevron-left"></i>
-                    </span>
-                  </button>
-                  <button class="news-slider__arrow news-slider-next">
-                    <span class="icon-font">
-                      <i class="fa-solid fa-chevron-right"></i>
-                    </span>
-                  </button>
+                  <button class="news-slider__arrow news-slider-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                  <button class="news-slider__arrow news-slider-next" aria-label="Next"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
                 </div>
                 <div class="news-slider__pagination"></div>
               </div>
@@ -117,32 +81,24 @@
         </div>
       </section>
 
-      <!-- Category Lanes -->
-      <section class="nbt-section nbt-section--strips">
+      <section class="nbt-section">
         <div class="nbt-section__header">
-          <h2>By Mood & Category</h2>
-          <p>Swipe through quick lanes of stories grouped by category or theme.</p>
+          <h2>By Mood &amp; Category</h2>
+          <p>Swipe through quick lanes of stories grouped by category.</p>
         </div>
-        <div id="nbt-category-strips" class="nbt-strips">
-          <!-- Category lanes injected via JS -->
-        </div>
+        <div id="nbt-category-strips" class="nbt-strips"></div>
       </section>
 
-      <!-- Grid Feed -->
-      <section class="nbt-section nbt-section--grid">
+      <section class="nbt-section">
         <div class="nbt-section__header">
           <h2>All Bengaluru Stories</h2>
           <p>Every headline from every feed, laid out in a dense, glanceable grid.</p>
         </div>
-
-        <div class="nbt-grid" id="nbt-grid">
-          <!-- Grid cards injected via JS -->
-        </div>
+        <div class="nbt-grid" id="nbt-grid"></div>
       </section>
     </main>
 
-    <!-- Full Article Drawer -->
-    <aside class="nbt-article" id="nbt-article">
+    <aside class="nbt-article" id="nbt-article" aria-hidden="true" role="dialog" aria-labelledby="nbt-article-title">
       <div class="nbt-article__overlay" id="nbt-article-overlay"></div>
       <div class="nbt-article__panel">
         <header class="nbt-article__header">
@@ -150,56 +106,42 @@
             <span id="nbt-article-source" class="nbt-chip nbt-chip--accent"></span>
             <span id="nbt-article-category" class="nbt-chip nbt-chip--soft"></span>
           </div>
-          <button class="nbt-article__close" id="nbt-article-close">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
+          <button class="nbt-article__close" id="nbt-article-close" aria-label="Close article"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </header>
-
         <div class="nbt-article__hero" id="nbt-article-hero"></div>
-
         <div class="nbt-article__body">
           <h1 id="nbt-article-title"></h1>
           <div class="nbt-article__meta">
             <span id="nbt-article-author"></span>
             <span id="nbt-article-date"></span>
-            <span id="nbt-article-guid"></span>
           </div>
-
           <div id="nbt-article-content" class="nbt-article__content"></div>
-
           <div class="nbt-article__enclosure" id="nbt-article-enclosure"></div>
-
           <div class="nbt-article__footer">
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener"
-              id="nbt-article-link"
-              class="nbt-btn nbt-btn--primary"
-            >
-              Read on original site
-            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" id="nbt-article-link" class="nbt-btn nbt-btn--primary">Read on original site</a>
           </div>
         </div>
       </div>
     </aside>
 
-    <!-- Footer -->
     <footer class="nbt-footer">
       <div class="nbt-footer__inner">
         <span>© <span id="nbt-year"></span> NammaBengaluruTimes</span>
         <span class="nbt-footer__sep">•</span>
-        <span>RSS blends from Times of India, Hindustan Times, The Hindu</span>
+        <span>RSS blends from TOI, HT, The Hindu</span>
         <span class="nbt-footer__sep">•</span>
         <span>Static hosting via GitHub Pages</span>
       </div>
     </footer>
   </div>
 
-  <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="script.js" defer></script>
 
-  <!-- App Logic -->
-  <script src="script.js"></script>
+  <noscript>
+    <div style="padding:1rem;background:#1f2937;color:#f3f4f6;text-align:center;">
+      NammaBengaluruTimes needs JavaScript to load live RSS feeds.
+    </div>
+  </noscript>
 </body>
 </html>
